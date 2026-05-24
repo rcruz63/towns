@@ -4,7 +4,7 @@ overview: "Plan por fases para construir un clon funcional de Townsfolk (mecáni
 todos:
   - id: setup-godot
     content: "Fase 0: Godot 4 Universal en game/, hex_math.gd, mapa clickeable con 7 terrenos placeholder"
-    status: pending
+    status: completed
   - id: hex-model-fog
     content: "Fases 1-2: HexCell, generación con seed, sistema de niebla y coste de exploración"
     status: pending
@@ -44,7 +44,7 @@ Alternativa válida si ya dominas C#: Unity. Para este proyecto, **Godot 4** es 
 
 **Aviso legal/educativo:** recrear *mecánicas* para aprender está bien; no copies sprites, música, nombres de edificios ni código del original. Usa **arte placeholder** (Kenney, itch.io CC0) o pixel art propia; renombra edificios/eventos si publicas algo.
 
-**Workspace del proyecto:** [`/Users/rcruz2/Developer/Cloud/Townsfolk`](/Users/rcruz2/Developer/Cloud/Townsfolk) — ya inicializado con **Git** y **uv** (`pyproject.toml`, Python 3.13). No usar el workspace de catálogo de servicios.
+**Workspace del proyecto:** [`/Users/rcruz2/Developer/Cloud/Townsfolk`](/Users/rcruz2/Developer/Cloud/Townsfolk) — ya inicializado con **Git** y **uv** (`pyproject.toml`, Python 3.13).
 
 **Instalación de Godot 4 (macOS):** elegir **Universal** (a veces aparece como “Godot Engine” sin la palabra .NET). Esa versión usa **GDScript** nativo, que es la del plan. La variante **.NET** exige instalar el SDK de .NET y programar principalmente en **C#**; solo tiene sentido si ya dominas C# y quieres ese lenguaje. Ambas comparten el editor visual; los proyectos no son 100% intercambiables sin migrar scripts.
 
