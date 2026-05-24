@@ -59,7 +59,7 @@ def axial_distance(a: tuple[int, int], b: tuple[int, int]) -> int:
 | Señales | `snake_case`, verbo en pasado o sustantivo (`hex_selected`) |
 | Constantes | `UPPER_SNAKE` o `const` en grupo lógico |
 | Identificadores en código | **Inglés** (`fertile`, `hex_map`) |
-| Texto visible al jugador | **Español** vía claves o `TerrainDefs.NAMES` |
+| Texto visible al jugador | **Español** vía claves o `TerrainCatalog.get_terrain_name` |
 | Commits | Inglés o español, pero prefijo claro: `feat(hex): …`, `docs: …` |
 
 ---

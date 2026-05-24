@@ -87,9 +87,10 @@ Riesgos, decisiones ya tomadas, enlaces externos.
 
 ---
 
-## Ejemplo mínimo (Fase 1, borrador)
+## Ejemplo activo (Fase 1)
 
-Ver [packages/001-hex-cell-y-generacion.md](packages/001-hex-cell-y-generacion.md) cuando el arquitecto lo active.
+- Cuaderno: [packages/001-hex-cell-y-generacion.md](packages/001-hex-cell-y-generacion.md)
+- Prompt implementador: [packages/001-PROMPT-implementador.md](packages/001-PROMPT-implementador.md)
 
 ---
 

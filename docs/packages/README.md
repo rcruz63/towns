@@ -4,6 +4,7 @@ Cada archivo `NNN-*.md` es un **cuaderno de carga** listo para entregar a un imp
 
 | ID | Título | Fase | Estado |
 |----|--------|------|--------|
-| — | *(ninguno publicado aún)* | — | — |
+| [001](001-hex-cell-y-generacion.md) | HexCell y generación con semilla | 1 | listo |
+| — | [Prompt implementador 001](001-PROMPT-implementador.md) | — | — |
 
 Plantilla y proceso: [WORK_PACKAGES.md](../WORK_PACKAGES.md).

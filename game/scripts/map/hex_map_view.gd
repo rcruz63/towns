@@ -1,82 +1,52 @@
+## Nodo encargado de la representación visual del mapa y la gestión de entrada del usuario.
+## Actúa como la "Vista" en el patrón Modelo-Vista.
 extends Node2D
 
-signal hex_selected(coords: Vector2i, terrain: TerrainDefs.Type, terrain_name: String)
+## Emitida cuando el usuario selecciona un hexágono.
+## [param coords] Coordenadas axiales.
+## [param terrain_id] ID técnico del terreno.
+## [param terrain_name] Nombre legible en español.
+## [param fog_state] Estado de visibilidad actual.
+signal hex_selected(coords: Vector2i, terrain_id: String, terrain_name: String, fog_state: int)
 
 @export var map_radius: int = 10
 @export var hex_size: float = 14.0
-@export var map_seed: int = 4242
+@export var map_seed: int = 1234
 
-var _cells: Dictionary = {} # Vector2i -> TerrainDefs.Type
+var _hex_map: HexMap
 var _selected: Vector2i = Vector2i(9999, 9999)
 var _has_selection := false
 
 
 func _ready() -> void:
+	_hex_map = HexMap.new()
 	_generate_map()
 	queue_redraw()
 
 
+## Solicita al modelo que genere un nuevo mapa.
 func _generate_map() -> void:
-	_cells.clear()
-	var rng := RandomNumberGenerator.new()
-	rng.seed = map_seed
-	var origin := Vector2i.ZERO
-
-	for coords in HexMath.disk(origin, map_radius):
-		var dist := HexMath.axial_distance(coords, origin)
-		var terrain := _pick_terrain(dist, map_radius, rng)
-		_cells[coords] = terrain
-
-
-func _pick_terrain(dist: int, radius: int, rng: RandomNumberGenerator) -> TerrainDefs.Type:
-	if dist >= radius:
-		return TerrainDefs.Type.OCEAN
-	if dist >= radius - 1:
-		return TerrainDefs.Type.OCEAN if rng.randf() < 0.7 else TerrainDefs.Type.POOR
-	if dist >= radius - 2:
-		var roll := rng.randi_range(0, 99)
-		if roll < 40:
-			return TerrainDefs.Type.OCEAN
-		if roll < 65:
-			return TerrainDefs.Type.POOR
-		if roll < 85:
-			return TerrainDefs.Type.DESERT
-		return TerrainDefs.Type.HILLS
-
-	var roll := rng.randi_range(0, 99)
-	if roll < 22:
-		return TerrainDefs.Type.FERTILE
-	if roll < 38:
-		return TerrainDefs.Type.HILLS
-	if roll < 52:
-		return TerrainDefs.Type.POOR
-	if roll < 64:
-		return TerrainDefs.Type.DESERT
-	if roll < 76:
-		return TerrainDefs.Type.MOUNTAIN
-	if roll < 86:
-		return TerrainDefs.Type.SNOW
-	if roll < 94:
-		return TerrainDefs.Type.FERTILE
-	return TerrainDefs.Type.HILLS
+	_hex_map.generate(map_seed, map_radius)
 
 
 func _draw() -> void:
-	var sorted: Array[Vector2i] = []
-	for coords in _cells.keys():
-		sorted.append(coords)
+	if not _hex_map:
+		return
+		
+	var sorted: Array = _hex_map.get_all_coords()
 	sorted.sort_custom(_sort_draw_order)
 
 	for coords in sorted:
+		var cell := _hex_map.get_cell(coords)
 		var center := HexMath.axial_to_pixel(coords.x, coords.y, hex_size)
-		var terrain: TerrainDefs.Type = _cells[coords]
-		var fill := TerrainDefs.color_for(terrain)
-		var outline := TerrainDefs.OUTLINE
+		
+		var fill := TerrainCatalog.get_color(cell.terrain_id)
+		var outline := TerrainCatalog.OUTLINE
 		var line_width := 1.0
 
 		if _has_selection and coords == _selected:
-			fill = fill * TerrainDefs.SELECTED_TINT
-			outline = TerrainDefs.SELECTED_OUTLINE
+			fill = fill * TerrainCatalog.SELECTED_TINT
+			outline = TerrainCatalog.SELECTED_OUTLINE
 			line_width = 2.0
 
 		var corners := HexMath.hex_corners(center, hex_size * 0.96)
@@ -84,8 +54,8 @@ func _draw() -> void:
 		draw_polyline(corners, outline, line_width, true)
 
 
+## Ordena las celdas para un dibujado coherente (de norte a sur).
 func _sort_draw_order(a: Vector2i, b: Vector2i) -> bool:
-	# Dibujar filas más al norte primero para solapado coherente.
 	if a.y == b.y:
 		return a.x < b.x
 	return a.y < b.y
@@ -98,18 +68,21 @@ func _unhandled_input(event: InputEvent) -> void:
 			_try_select_at(get_local_mouse_position())
 
 
+## Intenta seleccionar la celda bajo la posición local del ratón.
 func _try_select_at(local: Vector2) -> void:
 	var coords := HexMath.pixel_to_axial(local, hex_size)
-	if not _cells.has(coords):
+	if not _hex_map.has_cell(coords):
 		return
 
 	_selected = coords
 	_has_selection = true
 	queue_redraw()
 
-	var terrain: TerrainDefs.Type = _cells[coords]
-	hex_selected.emit(coords, terrain, TerrainDefs.name_for(terrain))
+	var cell := _hex_map.get_cell(coords)
+	var terrain_name := TerrainCatalog.get_terrain_name(cell.terrain_id)
+	hex_selected.emit(coords, cell.terrain_id, terrain_name, cell.fog_state)
 
 
+## Devuelve la cantidad de celdas en el mapa actual.
 func get_cell_count() -> int:
-	return _cells.size()
+	return _hex_map.get_cell_count() if _hex_map else 0
