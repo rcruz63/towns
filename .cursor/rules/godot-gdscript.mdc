@@ -1,0 +1,18 @@
+---
+description: Documentación y estilo GDScript en game/
+globs: game/**/*.gd
+alwaysApply: false
+---
+
+# GDScript (game/)
+
+```gdscript
+## Descripción en español.
+## [param q] Componente axial q.
+## [returns] Distancia en hexágonos.
+static func axial_distance(a: Vector2i, b: Vector2i) -> int:
+```
+
+- `##` = API pública; `#` solo para trucos no obvios.
+- Señales documentadas: cuándo se emiten y significado de argumentos.
+- `@export` con `##` explicando unidad/significado en juego.

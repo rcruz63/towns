@@ -1,0 +1,13 @@
+---
+description: Normas generales del repo Townsfolk (arquitecto, docs, fases)
+alwaysApply: true
+---
+
+# Townsfolk — reglas del agente
+
+- Leer `docs/CONVENTIONS.md` y la fase actual en `docs/PLAN.md` antes de implementar.
+- Respuestas al usuario en **español**; identificadores de código en **inglés**.
+- Godot 4.6+ en `game/`; no Godot 3. Separar datos / simulación (`scripts/model`, `scripts/systems`) / vista (`scenes`, `scripts/map`, `scripts/ui`).
+- Toda función o clase **pública** nueva en GDScript lleva comentario `##` (doc): propósito, `[param]`, `[returns]`. Ver CONVENTIONS.md.
+- Tareas grandes: usar cuaderno en `docs/packages/NNN-*.md` (WORK_PACKAGES.md); no ampliar alcance sin actualizar el cuaderno.
+- Commits solo si el usuario lo pide. No tocar proyectos ajenos fuera de este repo.
