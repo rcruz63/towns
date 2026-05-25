@@ -6,7 +6,10 @@ todos:
     content: "Fase 0: Godot 4 Universal en game/, hex_math.gd, mapa clickeable con 7 terrenos placeholder"
     status: completed
   - id: hex-model-fog
-    content: "Fases 1-2: HexCell, generación con seed, sistema de niebla y coste de exploración"
+    content: "Fase 1: HexCell, generación con seed, TerrainCatalog"
+    status: completed
+  - id: fog-explore
+    content: "Fase 2: Niebla HIDDEN/REVEALED/VISIBLE, exploración con coste de Producción"
     status: pending
   - id: economy-day
     content: "Fase 3: Recursos (Food/Gold/Faith/Production/Población), tick diario, HUD y game over"

@@ -3,7 +3,7 @@
 | Campo | Valor |
 |-------|--------|
 | Fase PLAN | Fase 1 — Modelo de celda y generación |
-| Estado | **listo** |
+| Estado | **hecho** |
 | Autor arquitecto | Arquitecto (chat principal) |
 | Fecha | 2026-05-24 |
 | Prompt implementador | [001-PROMPT-implementador.md](001-PROMPT-implementador.md) |

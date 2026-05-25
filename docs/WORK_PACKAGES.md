@@ -87,10 +87,16 @@ Riesgos, decisiones ya tomadas, enlaces externos.
 
 ---
 
-## Ejemplo activo (Fase 1)
+## Paquetes activos
 
-- Cuaderno: [packages/001-hex-cell-y-generacion.md](packages/001-hex-cell-y-generacion.md)
-- Prompt implementador: [packages/001-PROMPT-implementador.md](packages/001-PROMPT-implementador.md)
+| WP | Cuaderno | Prompt |
+|----|----------|--------|
+| 001 (hecho) | [001-hex-cell-y-generacion.md](packages/001-hex-cell-y-generacion.md) | [001-PROMPT](packages/001-PROMPT-implementador.md) |
+| 002 (listo) | [002-niebla-y-exploracion.md](packages/002-niebla-y-exploracion.md) | [002-PROMPT](packages/002-PROMPT-implementador.md) |
+
+## Revisión sin gastar tokens en vano
+
+El implementador entrega **checklist + lista de archivos + `git diff --stat`**, no el diff completo. El arquitecto confía en la **prueba manual** y lee solo 1–2 archivos núcleo si hace falta.
 
 ---
 
